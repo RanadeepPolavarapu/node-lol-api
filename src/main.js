@@ -168,35 +168,35 @@ class LoLAPIClient {
         return this._makeAPIRequest(finalURL);
     }
 
-    getLeaguesBySummonerIds(region, summonerIds=[]) {
+    getLeaguesBySummonerIds(region, summonerIds = []) {
         let route = `/api/lol/${region}/v2.5/league/by-summoner/${summonerIds}`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
-    getLeagueEntryBySummonerIds(region, summonerIds=[]) {
+    getLeagueEntryBySummonerIds(region, summonerIds = []) {
         let route = `/api/lol/${region}/v2.5/league/by-summoner/${summonerIds}/entry`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
-    getLeaguesByTeamIds(region, teamIds=[]) {
+    getLeaguesByTeamIds(region, teamIds = []) {
         let route = `/api/lol/${region}/v2.5/league/by-team/${teamIds}`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
-    getLeagueEntryByTeamIds(region, teamIds=[]) {
+    getLeagueEntryByTeamIds(region, teamIds = []) {
         let route = `/api/lol/${region}/v2.5/league/by-team/${teamIds}/entry`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
-    getLeaguesChallengerTier(region, queueType='RANKED_SOLO_5x5') {
+    getLeaguesChallengerTier(region, queueType = 'RANKED_SOLO_5x5') {
         let route = `/api/lol/${region}/v2.5/league/challenger`;
         let finalURL = this._buildAPIRequestURL(route, region, {
             type: queueType,
@@ -205,7 +205,7 @@ class LoLAPIClient {
         return this._makeAPIRequest(finalURL);
     }
 
-    getLeaguesMasterTier(region, queueType='RANKED_SOLO_5x5') {
+    getLeaguesMasterTier(region, queueType = 'RANKED_SOLO_5x5') {
         let route = `/api/lol/${region}/v2.5/league/master`;
         let finalURL = this._buildAPIRequestURL(route, region, {
             type: queueType,
@@ -218,16 +218,27 @@ class LoLAPIClient {
 let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
 
 // lol.getChampions('TR', true).then(response => console.log(response));
-lol.getChampionByChampionId('TR', 2)
-    .then(response => console.log(response))
-    .catch(err => LOGGER.error(err));
+// lol.getChampionByChampionId('TR', 2)
+//     .then(response => console.log(response))
+//     .catch(err => LOGGER.error(err));
+//
+// lol.getChampionMasteryBySummonerIdAndChampionId('na', 5908, 1)
+//     .then(response => console.log(response))
+//     .catch(err => LOGGER.error(err));
+//
+// lol.getLeaguesBySummonerIds('na', [5908, 2, 8])
+//     .then(response => console.log(response))
+//     .catch(err => LOGGER.error(err));
 
-lol.getChampionMasteryBySummonerIdAndChampionId('na', 5908, 1)
-    .then(response => console.log(response))
-    .catch(err => LOGGER.error(err));
+async function main() {
+    try {
+        var resp = await lol.getChampionByChampionId('TR', 3);
+        console.log(resp);
+    } catch (err) {
+        console.error(err);
+    }
+}
 
-lol.getLeaguesBySummonerIds('na', [5908, 2, 8])
-    .then(response => console.log(response))
-    .catch(err => LOGGER.error(err));
+main();
 
 // LOGGER.info(lol.getChampionById('kr'));
