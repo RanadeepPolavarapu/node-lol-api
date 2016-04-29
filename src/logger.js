@@ -1,4 +1,7 @@
 import winston from 'winston';
+import fs from 'fs';
+
+const CONFIG = JSON.parse(fs.readFileSync('config.json'));
 
 const LOGGER = new(winston.Logger)({
     transports: [
@@ -9,6 +12,8 @@ const LOGGER = new(winston.Logger)({
                 (options.message !== undefined ? options.message : '') +
                 (options.meta && Object.keys(options.meta).length ? '\n\t' +
                     JSON.stringify(options.meta) : '')),
+
+            level: CONFIG.logging.loggerLevel,
         }),
     ],
 });
