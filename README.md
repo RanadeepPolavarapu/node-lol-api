@@ -1,10 +1,7 @@
 # node-lol-api
-
 ====================
 
 A Node.js League of Legends API client that uses [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)s from ES6\. This solves the callback hell problem of having highly nested callbacks that are found in applications using callback oriented API clients.
-
----
 
 ## Installation
 
@@ -23,7 +20,7 @@ This library depends on [request-promise](https://www.npmjs.com/package/request-
 ### Create an API instance
 
 ``` js
-const LOL_API_CLIENT = new LoLAPIClient('98fa936c-75af-459c-8fc1-cded8fb0050b', 'NA');
+const LOL_API_CLIENT = new LoLAPIClient('98fa936c-75af-459c-8fc1-cded8fb0050b', 'NA'); // Example API key.
 ```
 
 ### Usage
@@ -36,7 +33,7 @@ Each API function returns a `Promise`, so it can be used using the `.then` and `
 
 #### Using [Promise.prototype.then()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) and [Promise.prototype.catch()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)
 ``` js
-lol.getChampionByChampionId('TR', 2)
+LOL_API_CLIENT.getChampionByChampionId('TR', 2)
     .then(response => console.log(response))
     .catch(err => console.error(err));
 ```
@@ -45,8 +42,8 @@ lol.getChampionByChampionId('TR', 2)
 ``` js
 async function main() {
     try {
-        var resp = await lol.getChampionByChampionId('TR', 3);
-        console.log(resp);
+        var response = await LOL_API_CLIENT.getChampionByChampionId('TR', 3);
+        console.log(response);
     } catch (err) {
         console.error(err);
     }
@@ -55,7 +52,7 @@ async function main() {
 main();
 ```
 
----
+===============
 
 ## License
 
