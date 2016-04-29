@@ -11,7 +11,7 @@ This module is installed via npm:
 npm install TBAPublishedName
 ```
 
-This library depends on [request-promise](https://www.npmjs.com/package/request-promise) for performing HTTP Promisified requests and [winston](https://www.npmjs.com/package/request-promise) for logging.  
+This library depends on [request-promise](https://www.npmjs.com/package/request-promise) for performing HTTP Promisified requests and [winston](https://www.npmjs.com/package/winston) for logging.  
 
 ---
 
