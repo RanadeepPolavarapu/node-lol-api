@@ -1,10 +1,11 @@
 import LOGGER from './logger';
-import requestPromise from 'request-promise';
-import url from 'url';
 import querystring from 'querystring';
+import requestPromise from 'request-promise';
+import request from 'request';
+import url from 'url';
 
 class LoLAPIClient {
-    constructor(apiKey, region) {
+    constructor(apiKey, region = 'NA') {
         this.apiKey = apiKey;
         this.region = region;
         this.REGIONAL_ENDPOINT_HOST_TEMPLATE = `https://{region}.api.pvp.net/`;
@@ -60,27 +61,57 @@ class LoLAPIClient {
         };
     }
 
-    async _makeAPIRequest() {
-        await requestPromise(`https://${this.region}.api.pvp.net/`);
+    _makeAPIRequest(url) {
+        console.log(url);
+        let rpOptions = {
+            uri: url,
+            json: true,
+        };
+        let response;
+
+        requestPromise(rpOptions)
+            .then(body => {
+                response = body;
+            })
+            .catch(err => {
+                response = err;
+            });
+
+        console.log(response);
+
+        return response;
     }
 
-    // _buildAPIRequestURL(route, region, options) {
-    //
-    // }
+    _buildAPIRequestURL(route, region = this.region, options = {}) {
+        let baseURLFormatted = `https://${region}.api.pvp.net/`;
+        let routeFormatted = route.replace('{region}', region.toLowerCase());
+
+        options.api_key = this.apiKey;
+
+        let routeQuerystring = querystring.stringify(options);
+        let finalURLFormatted = url.resolve(baseURLFormatted, routeFormatted) +
+            '?' + routeQuerystring;
+        return finalURLFormatted;
+    }
 
     getChampions(region, freeToPlay) {
-        let hostBaseUrl = region ? `https://${region}.api.pvp.net/` :
-            `https://${this.region}.api.pvp.net/`;
-        let route = region ? '/api/lol/{region}/v1.2/champion'.replace('{region}', region) :
-            '/api/lol/{region}/v1.2/champion'.replace('{region}', this.region);
-        let routeQuerystring = querystring.stringify({
+        let route = `/api/lol/{region}/v1.2/champion`;
+
+        let finalURL = this._buildAPIRequestURL(route, region, {
             freeToPlay: freeToPlay,
-            api_key: this.apiKey,
         });
-        let finalURL = url.resolve(hostBaseUrl, route) + '?' + routeQuerystring;
-        return finalURL;
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getChampionById(region, championId = 1) {
+        let route = `/api/lol/{region}/v1.2/champion/${championId ? championId : 1}`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        console.log(finalURL);
     }
 }
 
 let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
-LOGGER.info(lol.getChampions());
+LOGGER.info(lol.getChampions('TR'));
+LOGGER.info(lol.getChampionById('kr'));
