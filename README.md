@@ -1,5 +1,7 @@
 # node-lol-api
 
+[![Build Status](https://travis-ci.org/RanadeepPolavarapu/node-lol-api.svg?branch=master)](https://travis-ci.org/RanadeepPolavarapu/node-lol-api)  
+
 A Node.js League of Legends API client that uses [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)s from ES6\. This solves the callback hell problem of having highly nested callbacks that are found in applications using callback oriented API clients.
 
 ## Installation
