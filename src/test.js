@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import LoLAPIClient from './node-lol-api';
 
 const RIOT_GAMES_PROD_API_KEY = process.env.RIOT_GAMES_PROD_API_KEY ||
@@ -22,7 +23,7 @@ lol.getChampionByChampionId('TR', 2)
 
 async function main() {
     try {
-        var resp = await lol.getTeamsBySummonerIds('NA', [5908, 36531216]);
+        var resp = await lol.getTeamsBySummonerIds('NA', [5908, 49159160]);
         console.log(resp);
     } catch (err) {
         console.error(err);
