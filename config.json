@@ -1,5 +1,5 @@
 {
     "logging": {
-        "loggingLevel": "debug"
+        "loggerLevel": "debug"
     }
 }
