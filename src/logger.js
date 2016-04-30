@@ -1,7 +1,8 @@
-import winston from 'winston';
 import fs from 'fs';
+import winston from 'winston';
 
 const CONFIG = JSON.parse(fs.readFileSync('config.json'));
+const LOGGER_LEVEL = process.env.LOGGER_LEVEL || CONFIG.logging.loggerLevel;
 
 const LOGGER = new(winston.Logger)({
     transports: [
@@ -13,7 +14,7 @@ const LOGGER = new(winston.Logger)({
                 (options.meta && Object.keys(options.meta).length ? '\n\t' +
                     JSON.stringify(options.meta) : '')),
 
-            level: CONFIG.logging.loggerLevel,
+            level: LOGGER_LEVEL,
         }),
     ],
 });
