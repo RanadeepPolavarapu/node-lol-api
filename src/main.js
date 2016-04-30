@@ -10,6 +10,7 @@ class LoLAPIClient {
         this.apiKey = apiKey;
         this.region = region;
         this.REGIONAL_ENDPOINT_HOST_TEMPLATE = `https://{region}.api.pvp.net/`;
+        this.STATIC_ENDPOINT_TEMPLATE = `https://global.api.pvp.net/`;
         this.REGIONAL_ENDPOINTS = {
             BR: {
                 platformId: 'BR1',
@@ -213,6 +214,179 @@ class LoLAPIClient {
 
         return this._makeAPIRequest(finalURL);
     }
+
+    _buildStaticAPIRequestURL(route, region = this.region, options = {}) {
+        let baseURLFormatted = `https://global.api.pvp.net/`;
+        let routeFormatted = route.replace('{region}', region.toLowerCase());
+
+        options.api_key = this.apiKey;
+
+        let routeQuerystring = querystring.stringify(options);
+        let finalURLFormatted = url.resolve(baseURLFormatted, routeFormatted) +
+            '?' + routeQuerystring;
+
+        LOGGER.debug(`fn: ${this._buildAPIRequestURL.name}(
+            route: ${route},
+            region: ${region},
+            options: ${util.inspect(options)}): URL=${finalURLFormatted}`);
+
+        return finalURLFormatted;
+    }
+
+    getStaticAllChampionData(region, locale, version, dataById, champData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/champion`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            dataById: dataById,
+            champData: champData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticChampionDataByChampionId(region, championId, locale, version, champData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/champion/${championId}`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            champData: champData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllItemData(region, locale, version, itemListData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/item`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            itemListData: itemListData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticItemDataByItemId(region, itemId, locale, version, itemData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/item`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            itemData: itemData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllLanguageStringsData(region, locale, version) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/language-strings`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllLanguagesData(region) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/languages`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllMapData(region, locale, version) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/map`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllMasteryData(region, locale, version, masteryListData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/mastery`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            masteryListData: masteryListData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticMasteryDataByMasterId(region, masteryId, locale, version, masteryData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/mastery/${masteryId}`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            masteryData: masteryData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllRealmsData(region) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/realm`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllRunesData(region, locale, version, runeListData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/rune`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            runeListData: runeListData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticRuneDataByRuneId(region, runeId, locale, version, runeData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/rune/${runeId}`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            runeData: runeData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllSummonerSpellsData(region, locale, version, dataById, spellData) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/summoner-spell`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            dataById: dataById,
+            spellData: spellData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticSummonerSpellDataBySummonerId(region, summonerSpellId, locale, version, spellData) {
+        let route =
+            `/api/lol/static-data/${region.toLowerCase()}/v1.2/summoner-spell/${summonerSpellId}`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region, {
+            locale: locale,
+            version: version,
+            spellData: spellData,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStaticAllVersionsData(region) {
+        let route = `/api/lol/static-data/${region.toLowerCase()}/v1.2/versions`;
+        let finalURL = this._buildStaticAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
 }
 
 let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
@@ -232,7 +406,7 @@ let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
 
 async function main() {
     try {
-        var resp = await lol.getChampionByChampionId('TR', 3);
+        var resp = await lol.getStaticAllVersionsData('KR');
         console.log(resp);
     } catch (err) {
         console.error(err);
