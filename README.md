@@ -55,8 +55,6 @@ async function main() {
 main();
 ```
 
-===============
-
 ## License
 
 The MIT License (MIT)
