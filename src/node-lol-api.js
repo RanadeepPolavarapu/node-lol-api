@@ -137,7 +137,7 @@ export default class LoLAPIClient {
         return this._makeAPIRequest(finalURL);
     }
 
-    getChampionByChampionId(region, championId = 1) {
+    getChampionByChampionId(region, championId) {
         let route = `/api/lol/${region.toLowerCase()}/v1.2/champion/${championId ? championId : 1}`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
