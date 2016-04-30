@@ -1,7 +1,6 @@
 import LOGGER from './logger';
 import querystring from 'querystring';
 import requestPromise from 'request-promise';
-import request from 'request';
 import url from 'url';
 import util from 'util';
 
