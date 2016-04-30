@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - '6.0'
+  - '5.11'
+  - '5.10'
+  - '5.9'
+  - '5.8'
+  - '5.7'
+  - '5.6'
+  - '5.5'
+  - '5.4'
+  - '5.3'
+  - '5.2'
+  - '5.1'
+  - '4.4'
+  - '4.3'
+  - '4.2'
+  - '4.1'
+  - '4.0'
+  - '0.12'
+  - '0.11'
+  - '0.10'
+  - '0.8'
+  - '0.6'
+  - iojs
+script: npm run test
+notifications:
+  email: false
+env:
+  global:
+    - secure: >-
+        UHJS5KrI5iQ/6xUz5azsurAHlSXey945xQo3C7IljtG/9GXPC4ZkgoxKXtj2W73qdR9TjEtFhAqmgjJQcM/5Y6p6WUcSujxMnRFqFDp9b46KDjyLoAQrxAoKJml3VC/eIq7lu4fHZaiBO7TY7GLhCAlqNoxDjX2LZUEYnYL0ScJytxzNOw95sWJAA0tQHbAXZLqJKjo73tb4aTMwRRFSMNbgIsyC4gKZxBCm4/2SpCjKhJQA0BYqMocBAErlXrhH4SiNm7GZlYy7xZNgP3o6WayE/Xwvsi7CDnG44YNuOKosdL7pwJ/lOlE3XPu7KYR621hH35Kv8f5SfkVc+5iSMHRt7fEJr3AoU+V3s0okEIWdxAxyEmFwM2L/ofP3V2E6eJOYkDp4vlytWlKjTX5N6vfOZT7+itHYEC2tg1WXZhGzbCqaXlB795qU8+lWJeEy95fdcJ9hE2G9pwJB2eMdbAX1r/cXRIkiWrK8S8scZjBCwAUWEN7VMzq+zd9K+PEfAHvoNDE7DnWnsq9DmPh1O0hAMvliFDiBvtxpotlJO/nkdbbooZmuktXo8EJMS4sZhMHVnrFesePYeYa66cubmS+hH8woJSqsjaFvxHzeQi1qM+UL/IA8nL3BUAmgxdWC93pQDhWgWsnFQDwZS79RkOIcX0jfXaoc/uOK6J51cw4=
