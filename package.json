@@ -2,11 +2,11 @@
   "name": "node-lol-api",
   "version": "0.0.1",
   "description": "A League of Legends API client",
-  "main": "main.js",
+  "main": "node-lol-api.js",
   "scripts": {
     "build": "babel ./src -d ./lib",
-    "test": "./node_modules/.bin/babel-node ./src/main.js",
-    "start": "node ./lib/main.js"
+    "test": "./node_modules/.bin/babel-node ./src/test.js",
+    "start": "node ./lib/test.js"
   },
   "repository": {
     "type": "git",

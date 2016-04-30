@@ -5,7 +5,7 @@ import request from 'request';
 import url from 'url';
 import util from 'util';
 
-class LoLAPIClient {
+export default class LoLAPIClient {
     constructor(apiKey, region = 'NA') {
         this.apiKey = apiKey;
         this.region = region;
@@ -128,7 +128,7 @@ class LoLAPIClient {
     }
 
     getAllChampions(region, freeToPlay) {
-        let route = `/api/lol/{region}/v1.2/champion`;
+        let route = `/api/lol/${region.toLowerCase()}/v1.2/champion`;
 
         let finalURL = this._buildAPIRequestURL(route, region, {
             freeToPlay: freeToPlay,
@@ -138,7 +138,7 @@ class LoLAPIClient {
     }
 
     getChampionByChampionId(region, championId = 1) {
-        let route = `/api/lol/{region}/v1.2/champion/${championId ? championId : 1}`;
+        let route = `/api/lol/${region.toLowerCase()}/v1.2/champion/${championId ? championId : 1}`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
@@ -199,42 +199,42 @@ class LoLAPIClient {
     }
 
     getRecentGamesBySummonerId(region, summonerId) {
-        let route = `/api/lol/${region}/v1.3/game/by-summoner/${summonerId}/recent`;
+        let route = `/api/lol/${region.toLowerCase()}/v1.3/game/by-summoner/${summonerId}/recent`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
     getLeaguesBySummonerIds(region, summonerIds = []) {
-        let route = `/api/lol/${region}/v2.5/league/by-summoner/${summonerIds}`;
+        let route = `/api/lol/${region.toLowerCase()}/v2.5/league/by-summoner/${summonerIds}`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
     getLeagueEntryBySummonerIds(region, summonerIds = []) {
-        let route = `/api/lol/${region}/v2.5/league/by-summoner/${summonerIds}/entry`;
+        let route = `/api/lol/${region.toLowerCase()}/v2.5/league/by-summoner/${summonerIds}/entry`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
     getLeaguesByTeamIds(region, teamIds = []) {
-        let route = `/api/lol/${region}/v2.5/league/by-team/${teamIds}`;
+        let route = `/api/lol/${region.toLowerCase()}/v2.5/league/by-team/${teamIds}`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
     getLeagueEntryByTeamIds(region, teamIds = []) {
-        let route = `/api/lol/${region}/v2.5/league/by-team/${teamIds}/entry`;
+        let route = `/api/lol/${region.toLowerCase()}/v2.5/league/by-team/${teamIds}/entry`;
         let finalURL = this._buildAPIRequestURL(route, region);
 
         return this._makeAPIRequest(finalURL);
     }
 
     getLeaguesChallengerTier(region, queueType = 'RANKED_SOLO_5x5') {
-        let route = `/api/lol/${region}/v2.5/league/challenger`;
+        let route = `/api/lol/${region.toLowerCase()}/v2.5/league/challenger`;
         let finalURL = this._buildAPIRequestURL(route, region, {
             type: queueType,
         });
@@ -243,7 +243,7 @@ class LoLAPIClient {
     }
 
     getLeaguesMasterTier(region, queueType = 'RANKED_SOLO_5x5') {
-        let route = `/api/lol/${region}/v2.5/league/master`;
+        let route = `/api/lol/${region.toLowerCase()}/v2.5/league/master`;
         let finalURL = this._buildAPIRequestURL(route, region, {
             type: queueType,
         });
@@ -419,32 +419,104 @@ class LoLAPIClient {
         return this._makeAPIRequest(finalURL);
     }
 
-}
+    getMatchByMatchId(region, matchId, includeTimeline) {
+        let route = `/api/lol/${region.toLowerCase()}/v2.2/match/${matchId}`;
+        let finalURL = this._buildAPIRequestURL(route, region, {
+            includeTimeline: includeTimeline,
+        });
 
-let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
+        return this._makeAPIRequest(finalURL);
+    }
 
-// lol.getChampions('TR', true).then(response => console.log(response));
-// lol.getChampionByChampionId('TR', 2)
-//     .then(response => console.log(response))
-//     .catch(err => LOGGER.error(err));
-//
-// lol.getChampionMasteryBySummonerIdAndChampionId('na', 5908, 1)
-//     .then(response => console.log(response))
-//     .catch(err => LOGGER.error(err));
-//
-// lol.getLeaguesBySummonerIds('na', [5908, 2, 8])
-//     .then(response => console.log(response))
-//     .catch(err => LOGGER.error(err));
+    getMatchListBySummonerId(
+        region,
+        summonerId,
+        championIds = [],
+        rankedQueues = [],
+        seasons = [],
+        beginTime,
+        endTime,
+        beginIndex,
+        endIndex
+    ) {
+        let route = `/api/lol/${region.toLowerCase()}/v2.2/matchlist/by-summoner/${summonerId}`;
+        let finalURL = this._buildAPIRequestURL(route, region, {
+            championIds: championIds,
+            rankedQueues: rankedQueues,
+            seasons: seasons,
+            beginTime: beginTime,
+            endTime: endTime,
+            beginIndex: beginIndex,
+            endIndex: endIndex,
+        });
 
-async function main() {
-    try {
-        var resp = await lol.getStatusShardDataByRegion('RU');
-        console.log(resp);
-    } catch (err) {
-        console.error(err);
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getRankedStatsBySummonerId(region, summonerId, season) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.3/stats/by-summoner/${summonerId}/ranked`;
+        let finalURL = this._buildAPIRequestURL(route, region, {
+            season: season,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getPlayerStatsSummariesBySummonerId(region, summonerId, season) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.3/stats/by-summoner/${summonerId}/summary`;
+        let finalURL = this._buildAPIRequestURL(route, region, {
+            season: season,
+        });
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getSummonerObjectsDataBySummonerNames(region, summonerNames=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.4/summoner/by-name/${summonerNames}`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getSummonerObjectsDataBySummonerIds(region, summonerIds=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.4/summoner/${summonerIds}`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getSummonerMasteryPagesBySummonerIds(region, summonerIds=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.4/summoner/${summonerIds}/masteries`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getSummonerNamesBySummonerIds(region, summonerIds=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.4/summoner/${summonerIds}/name`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getSummonerRunePagesBySummonerIds(region, summonerIds=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v1.4/summoner/${summonerIds}/runes`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getTeamsBySummonerIds(region, summonerIds=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v2.4/team/by-summoner/${summonerIds}`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getTeamsByTeamIds(region, teamIds=[]) {
+        let route = `/api/lol/${region.toLowerCase()}/v2.4/team/${teamIds}`;
+        let finalURL = this._buildAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
     }
 }
-
-main();
-
-// LOGGER.info(lol.getChampionById('kr'));
