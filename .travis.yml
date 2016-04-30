@@ -23,7 +23,7 @@ node_js:
   - '0.8'
   - '0.6'
   - iojs
-script: npm run test-legacy
+script: npm run testLegacy
 notifications:
   email: false
 env:
