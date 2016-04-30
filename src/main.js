@@ -91,6 +91,42 @@ class LoLAPIClient {
         return finalURLFormatted;
     }
 
+    _buildStaticAPIRequestURL(route, region = this.region, options = {}) {
+        let baseURLFormatted = `https://global.api.pvp.net/`;
+        let routeFormatted = route.replace('{region}', region.toLowerCase());
+
+        options.api_key = this.apiKey;
+
+        let routeQuerystring = querystring.stringify(options);
+        let finalURLFormatted = url.resolve(baseURLFormatted, routeFormatted) +
+            '?' + routeQuerystring;
+
+        LOGGER.debug(`fn: ${this._buildStaticAPIRequestURL.name}(
+            route: ${route},
+            region: ${region},
+            options: ${util.inspect(options)}): URL=${finalURLFormatted}`);
+
+        return finalURLFormatted;
+    }
+
+    _buildStatusAPIRequestURL(route, region = this.region, options = {}) {
+        let baseURLFormatted = `https://status.leagueoflegends.com/`;
+        let routeFormatted = route.replace('{region}', region.toLowerCase());
+
+        options.api_key = this.apiKey;
+
+        let routeQuerystring = querystring.stringify(options);
+        let finalURLFormatted = url.resolve(baseURLFormatted, routeFormatted) +
+            '?' + routeQuerystring;
+
+        LOGGER.debug(`fn: ${this._buildStatusAPIRequestURL.name}(
+            route: ${route},
+            region: ${region},
+            options: ${util.inspect(options)}): URL=${finalURLFormatted}`);
+
+        return finalURLFormatted;
+    }
+
     getAllChampions(region, freeToPlay) {
         let route = `/api/lol/{region}/v1.2/champion`;
 
@@ -213,24 +249,6 @@ class LoLAPIClient {
         });
 
         return this._makeAPIRequest(finalURL);
-    }
-
-    _buildStaticAPIRequestURL(route, region = this.region, options = {}) {
-        let baseURLFormatted = `https://global.api.pvp.net/`;
-        let routeFormatted = route.replace('{region}', region.toLowerCase());
-
-        options.api_key = this.apiKey;
-
-        let routeQuerystring = querystring.stringify(options);
-        let finalURLFormatted = url.resolve(baseURLFormatted, routeFormatted) +
-            '?' + routeQuerystring;
-
-        LOGGER.debug(`fn: ${this._buildAPIRequestURL.name}(
-            route: ${route},
-            region: ${region},
-            options: ${util.inspect(options)}): URL=${finalURLFormatted}`);
-
-        return finalURLFormatted;
     }
 
     getStaticAllChampionData(region, locale, version, dataById, champData) {
@@ -387,6 +405,20 @@ class LoLAPIClient {
         return this._makeAPIRequest(finalURL);
     }
 
+    getStatusAllShardsData() {
+        let route = `/shards`;
+        let finalURL = this._buildStatusAPIRequestURL(route);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
+    getStatusShardDataByRegion(region) {
+        let route = `/shards/${region.toLowerCase()}`;
+        let finalURL = this._buildStatusAPIRequestURL(route, region);
+
+        return this._makeAPIRequest(finalURL);
+    }
+
 }
 
 let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
@@ -406,7 +438,7 @@ let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
 
 async function main() {
     try {
-        var resp = await lol.getStaticAllVersionsData('KR');
+        var resp = await lol.getStatusShardDataByRegion('RU');
         console.log(resp);
     } catch (err) {
         console.error(err);
