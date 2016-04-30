@@ -45,7 +45,7 @@ The usage of `async` and `await` makes your application code much cleaner.
 ``` js
 async function main() {
     try {
-        var response = await LOL_API_CLIENT.getChampionByChampionId('TR', 3);
+        let response = await LOL_API_CLIENT.getChampionByChampionId('TR', 3);
         console.log(response);
 
         // Do whatever. For example, insert this response data into some database.
