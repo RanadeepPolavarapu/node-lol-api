@@ -1,6 +1,8 @@
 import LoLAPIClient from './node-lol-api';
 
-let lol = new LoLAPIClient('abee5b6a-41b5-4be4-8d50-bd19cd4da6d5', 'NA');
+const RIOT_GAMES_PROD_API_KEY = process.env.RIOT_GAMES_PROD_API_KEY || 'abee5b6a-41b5-4be4-8d50-bd19cd4da6d5';
+
+let lol = new LoLAPIClient(RIOT_GAMES_PROD_API_KEY, 'NA');
 
 lol.getAllChampions('TR', true).then(response => console.log(response));
 
