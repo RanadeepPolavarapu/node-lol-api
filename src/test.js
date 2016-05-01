@@ -10,9 +10,9 @@ const REGION_TO_BE_TESTED = 'NA';
 /**
  * An instance of the LoLAPIClient.
  * @param {String} RIOT_GAMES_PROD_API_KEY A production key fetched from an environment variable.
- * @param {String} 'NA'                    The region.
+ * @param {String} REGION_TO_BE_TESTED The region.
  */
-let lolAPIClientInstance = new LoLAPIClient(RIOT_GAMES_PROD_API_KEY, 'NA');
+let lolAPIClientInstance = new LoLAPIClient(RIOT_GAMES_PROD_API_KEY, REGION_TO_BE_TESTED);
 
 // lolAPIClientInstance.getAllChampions('TR', true).then(response => console.log(response));
 //
