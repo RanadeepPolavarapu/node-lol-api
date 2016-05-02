@@ -52,7 +52,7 @@ declare module 'node-lol-api' {
         getStaticItemDataByItemId(region?: string, itemId, locale?: string, version?: string, itemData?: string[]): LoLAPIResponse;
 
         getStaticAllLanguageStringsData(region?: string, locale?: string, version?: string): LoLAPIResponse;
-        getStaticAllLanguagesData(region?: string): lolapires;
+        getStaticAllLanguagesData(region?: string): LoLAPIResponse;
 
         getStaticAllMapData(region?: string, locale?: string, version?: string): LoLAPIResponse;
 
