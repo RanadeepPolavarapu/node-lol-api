@@ -49,6 +49,11 @@ async function testAsyncAwait() {
         LOGGER.info(await lolAPIClientInstance.getRecentGamesBySummonerId(REGION_TO_BE_TESTED, 5908));
 
         LOGGER.info(await lolAPIClientInstance.getLeaguesBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160, 43114094]));
+        LOGGER.info(await lolAPIClientInstance.getLeagueEntryBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160, 43114094]));
+        LOGGER.info(await lolAPIClientInstance.getLeaguesChallengerTier(REGION_TO_BE_TESTED, 'RANKED_SOLO_5x5'));
+        LOGGER.info(await lolAPIClientInstance.getLeaguesMasterTier(REGION_TO_BE_TESTED, 'RANKED_SOLO_5x5'));
+
+        // Team's Leagues routes can't be tested as teams are in a 'disabled' state currently.
 
         // LOGGER.info(await lolAPIClientInstance.getTeamsBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160]));
     } catch (err) {
