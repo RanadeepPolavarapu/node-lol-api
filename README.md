@@ -6,10 +6,12 @@ A Node.js League of Legends API client that uses [Promise](https://developer.moz
 
 ## Installation
 
-This module is installed via npm:
+This module will not be published on npmjs public repository.
+
+This module is installed via npm with GitHub as the source:
 
 ``` bash
-npm install TBAPublishedName
+npm install git+https://github.com/RanadeepPolavarapu/node-lol-api.git
 ```
 
 This library depends on [request-promise](https://www.npmjs.com/package/request-promise) for performing HTTP Promisified requests and [winston](https://www.npmjs.com/package/winston) for logging.  
