@@ -12,22 +12,7 @@ const REGION_TO_BE_TESTED = 'NA';
  * @param {String} RIOT_GAMES_PROD_API_KEY A production key fetched from an environment variable.
  * @param {String} REGION_TO_BE_TESTED The region.
  */
-let lolAPIClientInstance = new LoLAPIClient(RIOT_GAMES_PROD_API_KEY, REGION_TO_BE_TESTED);
-
-// lolAPIClientInstance.getAllChampions('TR', true).then(response => console.log(response));
-//
-// lolAPIClientInstance.getChampionByChampionId('TR', 2)
-//     .then(response => LOGGER.info(response))
-//     .catch(err => LOGGER.error(err));
-
-//
-// lol.getChampionMasteryBySummonerIdAndChampionId('na', 5908, 1)
-//     .then(response => console.log(response))
-//     .catch(err => LOGGER.error(err));
-//
-// lol.getLeaguesBySummonerIds('na', [5908, 2, 8])
-//     .then(response => console.log(response))
-//     .catch(err => LOGGER.error(err));
+const lolAPIClientInstance = new LoLAPIClient(RIOT_GAMES_PROD_API_KEY, REGION_TO_BE_TESTED);
 
 async function testAsyncAwait() {
     try {
