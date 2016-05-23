@@ -53,9 +53,43 @@ async function testAsyncAwait() {
         LOGGER.info(await lolAPIClientInstance.getLeaguesChallengerTier(REGION_TO_BE_TESTED, 'RANKED_SOLO_5x5'));
         LOGGER.info(await lolAPIClientInstance.getLeaguesMasterTier(REGION_TO_BE_TESTED, 'RANKED_SOLO_5x5'));
 
-        // Team's Leagues routes can't be tested as teams are in a 'disabled' state currently.
+        // Static routes testing.
+        LOGGER.info(await lolAPIClientInstance.getStaticAllChampionData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticChampionDataByChampionId(REGION_TO_BE_TESTED, 1));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllItemData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticItemDataByItemId(REGION_TO_BE_TESTED, 1410));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllLanguageStringsData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllLanguagesData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllMapData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllMasteryData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticMasteryDataByMasterId(REGION_TO_BE_TESTED, 6121));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllRealmsData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllRunesData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticRuneDataByRuneId(REGION_TO_BE_TESTED, 5235));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllSummonerSpellsData(REGION_TO_BE_TESTED));
+        LOGGER.info(await lolAPIClientInstance.getStaticSummonerSpellDataBySummonerId(REGION_TO_BE_TESTED, 1));
+        LOGGER.info(await lolAPIClientInstance.getStaticAllVersionsData(REGION_TO_BE_TESTED));
 
-        // LOGGER.info(await lolAPIClientInstance.getTeamsBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160]));
+        // Shard status routes.
+        LOGGER.info(await lolAPIClientInstance.getStatusAllShardsData());
+        LOGGER.info(await lolAPIClientInstance.getStatusShardDataByRegion(REGION_TO_BE_TESTED));
+
+        // Match and matchlist routes.
+        LOGGER.info(await lolAPIClientInstance.getMatchByMatchId(REGION_TO_BE_TESTED, 2180674644, true));
+        LOGGER.info(await lolAPIClientInstance.getMatchListBySummonerId(REGION_TO_BE_TESTED, 5908));
+
+        // Stats routes.
+        LOGGER.info(await lolAPIClientInstance.getRankedStatsBySummonerId(REGION_TO_BE_TESTED, 5908));
+        LOGGER.info(await lolAPIClientInstance.getPlayerStatsSummariesBySummonerId(REGION_TO_BE_TESTED, 5908));
+
+        // Summoner routes.
+        LOGGER.info(await lolAPIClientInstance.getSummonerObjectsDataBySummonerNames(REGION_TO_BE_TESTED, ['Dyrus', 'Udyr']));
+        LOGGER.info(await lolAPIClientInstance.getSummonerObjectsDataBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160]));
+        LOGGER.info(await lolAPIClientInstance.getSummonerMasteryPagesBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160]));
+        LOGGER.info(await lolAPIClientInstance.getSummonerNamesBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160]));
+        LOGGER.info(await lolAPIClientInstance.getSummonerRunePagesBySummonerIds(REGION_TO_BE_TESTED, [5908, 49159160]));
+
+        // Team's Leagues routes can't be tested as teams are in a 'disabled' state currently.
     } catch (err) {
         LOGGER.error(err);
     }
