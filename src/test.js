@@ -76,7 +76,7 @@ async function testAsyncAwait() {
 
         // Team's Leagues routes can't be tested as teams are in a 'disabled' state currently.
     } catch (err) {
-        LOGGER.error(err);
+        LOGGER.error(`Error: ${err}`);
     }
 }
 
